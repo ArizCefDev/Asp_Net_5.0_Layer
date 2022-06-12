@@ -1,0 +1,66 @@
+﻿using BuisnessLayer.Abstract;
+using DataAccessLayer.Abstract;
+using EntityLayer.Concrete;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BuisnessLayer.Concrete
+{
+    public class BlogManager : IBolgService
+    {
+        IBlogDal _blogDal;
+
+        public BlogManager(IBlogDal blogDal)
+        {
+            _blogDal = blogDal;
+        }
+
+        public void TAdd(Blog t)
+        {
+            _blogDal.Insert(t);
+        }
+
+        public void TDelete(Blog t)
+        {
+            _blogDal.Delete(t);
+        }
+
+        public void TUpdate(Blog t)
+        {
+            _blogDal.Update(t);
+        }
+
+        public List<Blog> TGetList()
+        {
+            return _blogDal.GetListAll();
+        }
+
+        public Blog TGetById(int id)
+        {
+            return _blogDal.GetByid(id);
+        }
+
+        public List<Blog> GetBlogListWithCategory()
+        {
+            return _blogDal.GetListWithCategory();
+        }
+
+        public List<Blog> GetListWithCategoryByWriterBM(int id)
+        {
+            return _blogDal.GetListWithCategoryByWriter(id);
+        }
+
+        public List<Blog> GetBlogByID(int id)
+        {
+            return _blogDal.GetListAll(x=>x.BlogID==id);
+        }
+
+        public List<Blog> GetBlogListByWriter(int id)
+        {
+            return _blogDal.GetListAll(x=>x.WriterID==id);
+        }
+    }
+}

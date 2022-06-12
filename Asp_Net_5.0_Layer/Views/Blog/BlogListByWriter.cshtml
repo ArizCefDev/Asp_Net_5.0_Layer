@@ -1,0 +1,53 @@
+﻿@using EntityLayer.Concrete
+@model List<Blog>
+@{
+    ViewData["Title"] = "BlogListByWriter";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>Writer Blogs</h1>
+<br />
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> # </th>
+                                <th> Blog Title </th>
+                                <th> Blog Date </th>
+                                <th> Category </th>
+                                <th> Status </th>
+                                <th> Delete </th>
+                                <th> Update </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th> @item.BlogID </th>
+                                    <td> @item.BlogTitle </td>
+                                    <td> @(((DateTime)item.BlogCreateDate).ToString("dd-MMM-yyyy")) </td>
+                                    <td> @item.Category.CategoryName </td>
+                                    <td> @item.BlogStatus </td>
+                                    <td> <a href="/Blog/BlogDelete/@item.BlogID" class="btn btn-danger">Delete</a> </td>
+                                    <td> <a href="/Blog/BlogUpdate/@item.BlogID" class="btn btn-success">Update</a> </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<a href="/Blog/BlogAdd/" class="btn btn-info">New Blog</a>
+
+

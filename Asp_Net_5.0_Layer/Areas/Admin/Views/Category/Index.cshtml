@@ -1,0 +1,56 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<EntityLayer.Concrete.Category>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Category List</h1>
+<br />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Border Table </h5>
+            </div>
+            <div class="ibox-content">
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Category Name</th>
+                            <th>Passive</th>
+                            <th>Aktive</th>
+                            <th>Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in Model)
+                        {
+                         <tr>
+                            <th>@item.CategoryID</th>
+                            <td>@item.CategoryName</td>
+                            <td>
+                                <a href="/Admin/Category/CategoryDelete/@item.CategoryID/" id="DeleteBtn" class="btn btn-danger"
+                                onclick="return confirm('Want to delete?');">Do Passive</a>
+                            </td>
+
+                            <td><a href="#" class="btn btn-primary">Do Active</a></td>
+                            <td><a href="#" class="btn btn-success">Update</a></td>
+                         </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<a href="/Admin/Category/CategoryAdd/" class="btn btn-primary">New Category</a>
+<br />
+<br />
+@Html.PagedListPager((IPagedList)Model, page=>Url.Action("Index",new{page}))
